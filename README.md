@@ -561,7 +561,3 @@ This repository is created for educational purposes as part of Cognizant Digital
 <div align="center">
   <img src="https://komarev.com/ghpvc/?username=PratapSakthivel&label=Repository%20Views&color=0e75b6&style=flat" alt="views" />
 </div>
-
-<div align="center">
-  <h3>⭐ If you find this repository helpful, please give it a star! ⭐</h3>
-</div>
