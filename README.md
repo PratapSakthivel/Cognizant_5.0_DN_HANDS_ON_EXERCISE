@@ -49,22 +49,6 @@ This repository contains comprehensive hands-on exercises completed as part of *
     alt="Tech Stack"
   />
 </div>
-
-### Backend (Week 4)
-![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white)
-![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=flat&logo=spring&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
-![RESTful API](https://img.shields.io/badge/REST_API-009688?style=flat&logo=fastapi&logoColor=white)
-
-### Frontend (Week 5)
-![Angular](https://img.shields.io/badge/Angular_20-DD0031?style=flat&logo=angular&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
-![RxJS](https://img.shields.io/badge/RxJS-B7178C?style=flat&logo=reactivex&logoColor=white)
-![NgRx](https://img.shields.io/badge/NgRx-412846?style=flat&logo=ngrx&logoColor=white)
-![Jasmine](https://img.shields.io/badge/Jasmine-8A4182?style=flat&logo=jasmine&logoColor=white)
-![Karma](https://img.shields.io/badge/Karma-56C5A8?style=flat&logo=karma&logoColor=white)
-
 ---
 
 ## 📂 Repository Structure
