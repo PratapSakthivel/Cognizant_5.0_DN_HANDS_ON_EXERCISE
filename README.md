@@ -527,12 +527,11 @@ Week 5 (Angular Frontend)
   <a href="https://chat.z.ai/space/v1p5w6m6kab0-art">
     <img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white"/>
   </a>
+  
   <a href="https://www.linkedin.com/in/pratap-s-587b0b342/">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
   </a>
-  <a href="https://leetcode.com/u/PratapSakthivel/">
-    <img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black"/>
-  </a>
+  
   <a href="mailto:pratapssakthivel@gmail.com">
     <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
   </a>
