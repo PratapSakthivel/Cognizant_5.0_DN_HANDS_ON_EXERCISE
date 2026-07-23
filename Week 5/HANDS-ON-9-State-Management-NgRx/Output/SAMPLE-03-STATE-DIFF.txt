@@ -1,0 +1,70 @@
+================================================================================
+SCREENSHOT 3: Redux DevTools - State Diff (Before/After)
+================================================================================
+
+Redux DevTools → Diff Tab
+
+Action: [Enrollment] Enroll in Course { courseId: 2 }
+
+BEFORE (Previous State):
+------------------------
+{
+  "course": {
+    "courses": [...],  // unchanged
+    "loading": false,
+    "error": null
+  },
+  "enrollment": {
+    "enrolledCourseIds": [1, 3, 5],  ← BEFORE
+    "loading": false
+  }
+}
+
+AFTER (New State):
+------------------
+{
+  "course": {
+    "courses": [...],  // unchanged
+    "loading": false,
+    "error": null
+  },
+  "enrollment": {
+    "enrolledCourseIds": [1, 3, 5, 2],  ← AFTER (added 2)
+    "loading": false
+  }
+}
+
+DIFF VIEW:
+----------
+enrollment:
+  enrolledCourseIds:
+    + [3]: 2  ← Added courseId 2 at index 3
+
+STATE CHANGES:
+--------------
+✓ enrolledCourseIds array updated immutably
+✓ New array created (not mutated)
+✓ Only enrollment state changed
+✓ Course state unchanged (different slice)
+
+IMMUTABLE UPDATE PATTERN (Reducer):
+------------------------------------
+// ✅ CORRECT (immutable)
+on(EnrollmentActions.enrollInCourse, (state, { courseId }) => ({
+  ...state,
+  enrolledCourseIds: [...state.enrolledCourseIds, courseId]
+}))
+
+// ❌ WRONG (mutates state)
+on(EnrollmentActions.enrollInCourse, (state, { courseId }) => {
+  state.enrolledCourseIds.push(courseId);  // NEVER DO THIS!
+  return state;
+})
+
+================================================================================
+✓ Highlights exactly what changed
+✓ Shows previous and new state
+✓ Proves immutability (new array created)
+✓ Only affected state slice shown
+✓ Green = added, Red = removed, Yellow = changed
+================================================================================

@@ -1,0 +1,263 @@
+================================================================================
+SCREENSHOT 10: Dynamic Enroll/Unenroll Buttons Based on State
+================================================================================
+
+COMPONENT (course-card.component.ts):
+--------------------------------------
+import { Component, Input, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Course } from '../../models/course.model';
+import * as EnrollmentActions from '../../store/enrollment/enrollment.actions';
+import * as EnrollmentSelectors from '../../store/enrollment/enrollment.selectors';
+
+@Component({
+  selector: 'app-course-card',
+  templateUrl: './course-card.component.html',
+  styleUrls: ['./course-card.component.css']
+})
+export class CourseCardComponent {
+  @Input() course!: Course;
+  private store = inject(Store);
+
+  // Select enrolled IDs from store
+  enrolledIds$: Observable<number[]> = 
+    this.store.select(EnrollmentSelectors.selectEnrolledIds);
+
+  // Check if THIS specific course is enrolled
+  isEnrolled$: Observable<boolean> = 
+    this.store.select(EnrollmentSelectors.isEnrolledInCourse(this.course.id));
+
+  onEnroll() {
+    this.store.dispatch(
+      EnrollmentActions.enrollInCourse({ courseId: this.course.id })
+    );
+  }
+
+  onUnenroll() {
+    this.store.dispatch(
+      EnrollmentActions.unenrollFromCourse({ courseId: this.course.id })
+    );
+  }
+}
+
+TEMPLATE (course-card.component.html):
+---------------------------------------
+<mat-card class="course-card">
+  <mat-card-header>
+    <mat-card-title>{{ course.name }}</mat-card-title>
+    <mat-card-subtitle>{{ course.code }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p><strong>Credits:</strong> {{ course.credits }}</p>
+    <p><strong>Status:</strong> {{ course.gradeStatus }}</p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <!-- Show ENROLL button if NOT enrolled -->
+    <button 
+      *ngIf="!(isEnrolled$ | async)" 
+      mat-raised-button 
+      color="primary"
+      (click)="onEnroll()">
+      <mat-icon>add</mat-icon>
+      Enroll
+    </button>
+
+    <!-- Show UNENROLL button if enrolled -->
+    <button 
+      *ngIf="isEnrolled$ | async" 
+      mat-raised-button 
+      color="warn"
+      (click)="onUnenroll()">
+      <mat-icon>check</mat-icon>
+      Enrolled - Unenroll
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+RENDERED OUTPUT:
+----------------
+Course 1 (Enrolled):
+┌─────────────────────────────────────────┐
+│  Introduction to Angular                │
+│  ANG101                                 │
+├─────────────────────────────────────────┤
+│  Credits: 3                             │
+│  Status: completed                      │
+├─────────────────────────────────────────┤
+│  [✓ Enrolled - Unenroll]  ← Warn color │
+└─────────────────────────────────────────┘
+
+Course 2 (Not Enrolled):
+┌─────────────────────────────────────────┐
+│  TypeScript Fundamentals                │
+│  TS101                                  │
+├─────────────────────────────────────────┤
+│  Credits: 2                             │
+│  Status: in-progress                    │
+├─────────────────────────────────────────┤
+│  [+ Enroll]  ← Primary color            │
+└─────────────────────────────────────────┘
+
+REDUX DEVTOOLS STATE:
+----------------------
+{
+  "enrollment": {
+    "enrolledCourseIds": [1, 3, 5]  ← Courses 1, 3, 5 enrolled
+  }
+}
+
+ACTION FLOW (Enroll Button Click):
+-----------------------------------
+User clicks "Enroll" on Course 2
+
+1. Component dispatches action:
+   this.store.dispatch(enrollInCourse({ courseId: 2 }))
+
+2. Redux DevTools shows:
+   [Enrollment] Enroll in Course { courseId: 2 }
+
+3. Reducer updates state:
+   enrolledCourseIds: [1, 3, 5] → [1, 3, 5, 2]
+
+4. Selector emits new value:
+   isEnrolledInCourse(2) → true
+
+5. Template re-renders:
+   *ngIf="!(isEnrolled$ | async)" → false (hide Enroll button)
+   *ngIf="isEnrolled$ | async" → true (show Unenroll button)
+
+ACTION FLOW (Unenroll Button Click):
+-------------------------------------
+User clicks "Enrolled - Unenroll" on Course 1
+
+1. Component dispatches action:
+   this.store.dispatch(unenrollFromCourse({ courseId: 1 }))
+
+2. Redux DevTools shows:
+   [Enrollment] Unenroll from Course { courseId: 1 }
+
+3. Reducer updates state:
+   enrolledCourseIds: [1, 3, 5, 2] → [3, 5, 2]
+
+4. Selector emits new value:
+   isEnrolledInCourse(1) → false
+
+5. Template re-renders:
+   *ngIf="isEnrolled$ | async" → false (hide Unenroll button)
+   *ngIf="!(isEnrolled$ | async)" → true (show Enroll button)
+
+SELECTOR (enrollment.selectors.ts):
+------------------------------------
+// Parameterized selector for checking specific course
+export const isEnrolledInCourse = (courseId: number) => createSelector(
+  selectEnrolledIds,
+  (enrolledIds) => enrolledIds.includes(courseId)
+);
+
+// Usage in component
+isEnrolled$ = this.store.select(
+  EnrollmentSelectors.isEnrolledInCourse(this.course.id)
+);
+
+ALTERNATIVE APPROACH (Check in Template):
+------------------------------------------
+// In component:
+enrolledIds$ = this.store.select(EnrollmentSelectors.selectEnrolledIds);
+
+// In template:
+<button *ngIf="!(enrolledIds$ | async)?.includes(course.id)">
+  Enroll
+</button>
+
+<button *ngIf="(enrolledIds$ | async)?.includes(course.id)">
+  Enrolled - Unenroll
+</button>
+
+// ✅ Works but less clean
+// ❌ Logic in template (harder to test)
+// ✅ Using parameterized selector is better
+
+ADVANCED: Loading State for Individual Enrollment:
+---------------------------------------------------
+interface EnrollmentState {
+  enrolledCourseIds: number[];
+  enrollingIds: number[];    // Courses currently being enrolled
+  unenrollingIds: number[];  // Courses currently being unenrolled
+}
+
+// Template with loading state:
+<button 
+  *ngIf="!(isEnrolled$ | async)" 
+  [disabled]="(isEnrolling$ | async)"
+  (click)="onEnroll()">
+  <mat-spinner *ngIf="isEnrolling$ | async" diameter="20"></mat-spinner>
+  {{ (isEnrolling$ | async) ? 'Enrolling...' : 'Enroll' }}
+</button>
+
+OPTIMISTIC UI UPDATE:
+----------------------
+// Immediately update UI, rollback if API fails
+on(EnrollmentActions.enrollInCourse, (state, { courseId }) => ({
+  ...state,
+  enrolledCourseIds: [...state.enrolledCourseIds, courseId],  // Optimistic
+  enrollingIds: [...state.enrollingIds, courseId]
+}))
+
+on(EnrollmentActions.enrollInCourseSuccess, (state, { courseId }) => ({
+  ...state,
+  enrollingIds: state.enrollingIds.filter(id => id !== courseId)
+}))
+
+on(EnrollmentActions.enrollInCourseFailure, (state, { courseId }) => ({
+  ...state,
+  enrolledCourseIds: state.enrolledCourseIds.filter(id => id !== courseId),
+  enrollingIds: state.enrollingIds.filter(id => id !== courseId)
+}))
+
+COMPARISON WITH SERVICE APPROACH:
+----------------------------------
+❌ Without NgRx:
+class CourseCardComponent {
+  isEnrolled: boolean = false;
+
+  ngOnInit() {
+    this.enrollmentService.enrolledCourses$.subscribe(courses => {
+      this.isEnrolled = courses.some(c => c.id === this.course.id);
+    });
+  }
+
+  onEnroll() {
+    this.enrollmentService.enroll(this.course);
+  }
+}
+// Problem: Manual subscription (memory leak risk)
+// Problem: Need ngOnDestroy to unsubscribe
+// Problem: isEnrolled is mutable state in component
+// Problem: No action history
+
+✅ With NgRx:
+isEnrolled$ = this.store.select(
+  EnrollmentSelectors.isEnrolledInCourse(this.course.id)
+);
+
+onEnroll() {
+  this.store.dispatch(enrollInCourse({ courseId: this.course.id }));
+}
+// Benefit: No manual subscription (async pipe handles it)
+// Benefit: No memory leaks
+// Benefit: Immutable state from store
+// Benefit: Full action history in Redux DevTools
+
+================================================================================
+✓ Dynamic buttons based on enrollment state
+✓ Parameterized selector for specific course
+✓ Async pipe handles subscription lifecycle
+✓ Immediate UI update on button click
+✓ Full action history in Redux DevTools
+✓ Optimistic UI updates (optional)
+✓ Loading states (optional)
+✓ Clean, testable component code
+================================================================================

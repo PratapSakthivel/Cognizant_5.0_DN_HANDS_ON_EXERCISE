@@ -1,0 +1,171 @@
+================================================================================
+SCREENSHOT 6: Enrollment State Management
+================================================================================
+
+REDUX DEVTOOLS STATE:
+---------------------
+{
+  "enrollment": {
+    "enrolledCourseIds": [1, 3, 5],
+    "loading": false
+  }
+}
+
+ENROLLMENT REDUCER (enrollment.reducer.ts):
+--------------------------------------------
+import { createReducer, on } from '@ngrx/store';
+import * as EnrollmentActions from './enrollment.actions';
+
+export const enrollmentReducer = createReducer(
+  initialEnrollmentState,
+
+  // Enroll in course
+  on(EnrollmentActions.enrollInCourse, (state, { courseId }) => ({
+    ...state,
+    enrolledCourseIds: [...state.enrolledCourseIds, courseId]  // Immutable add
+  })),
+
+  // Unenroll from course
+  on(EnrollmentActions.unenrollFromCourse, (state, { courseId }) => ({
+    ...state,
+    enrolledCourseIds: state.enrolledCourseIds.filter(id => id !== courseId)
+  })),
+
+  // Set all enrolled courses
+  on(EnrollmentActions.setEnrolledCourses, (state, { courseIds }) => ({
+    ...state,
+    enrolledCourseIds: courseIds
+  }))
+);
+
+ACTION FLOW IN REDUX DEVTOOLS:
+-------------------------------
+
+1. [Enrollment] Enroll in Course { courseId: 2 }
+   Before: { enrolledCourseIds: [1, 3, 5] }
+   After:  { enrolledCourseIds: [1, 3, 5, 2] }
+
+2. [Enrollment] Unenroll from Course { courseId: 1 }
+   Before: { enrolledCourseIds: [1, 3, 5, 2] }
+   After:  { enrolledCourseIds: [3, 5, 2] }
+
+3. [Enrollment] Enroll in Course { courseId: 4 }
+   Before: { enrolledCourseIds: [3, 5, 2] }
+   After:  { enrolledCourseIds: [3, 5, 2, 4] }
+
+COMPONENT USAGE (course-card.component.ts):
+--------------------------------------------
+export class CourseCardComponent {
+  @Input() course!: Course;
+  private store = inject(Store);
+
+  // Select enrollment state
+  enrolledIds$ = this.store.select(
+    EnrollmentSelectors.selectEnrolledIds
+  );
+
+  // Check if this specific course is enrolled
+  isEnrolled$ = this.store.select(
+    EnrollmentSelectors.isEnrolledInCourse(this.course.id)
+  );
+
+  onEnroll() {
+    this.store.dispatch(
+      EnrollmentActions.enrollInCourse({ courseId: this.course.id })
+    );
+  }
+
+  onUnenroll() {
+    this.store.dispatch(
+      EnrollmentActions.unenrollFromCourse({ courseId: this.course.id })
+    );
+  }
+}
+
+TEMPLATE (course-card.component.html):
+---------------------------------------
+<div class="course-card">
+  <h3>{{ course.name }}</h3>
+  <p>{{ course.code }} - {{ course.credits }} credits</p>
+
+  <!-- Show Enroll button if NOT enrolled -->
+  <button
+    *ngIf="!(isEnrolled$ | async)"
+    (click)="onEnroll()"
+    class="btn-primary">
+    Enroll
+  </button>
+
+  <!-- Show Unenroll button if enrolled -->
+  <button
+    *ngIf="isEnrolled$ | async"
+    (click)="onUnenroll()"
+    class="btn-danger">
+    ✓ Enrolled - Unenroll
+  </button>
+</div>
+
+RENDERED OUTPUT:
+----------------
+Course 1 (enrolled):    [✓ Enrolled - Unenroll]
+Course 2 (not enrolled): [Enroll]
+Course 3 (enrolled):    [✓ Enrolled - Unenroll]
+Course 4 (not enrolled): [Enroll]
+Course 5 (enrolled):    [✓ Enrolled - Unenroll]
+
+SELECTOR (enrollment.selectors.ts):
+------------------------------------
+// Select enrolled course IDs
+export const selectEnrolledIds = createSelector(
+  selectEnrollmentState,
+  (state) => state.enrolledCourseIds
+);
+
+// Check if specific course is enrolled (parameterized selector)
+export const isEnrolledInCourse = (courseId: number) => createSelector(
+  selectEnrolledIds,
+  (enrolledIds) => enrolledIds.includes(courseId)
+);
+
+// Cross-slice selector: get enrolled courses with full details
+export const selectEnrolledCourses = createSelector(
+  selectAllCourses,        // From course slice
+  selectEnrolledIds,       // From enrollment slice
+  (courses, enrolledIds) => 
+    courses.filter(c => enrolledIds.includes(c.id))
+);
+
+STATE BENEFITS:
+---------------
+✅ Single source of truth for enrollment
+✅ Enrollment state separate from course state
+✅ Easy to check enrollment status
+✅ Immutable updates (no array mutation)
+✅ Time-travel debugging (can undo/redo enrollments)
+✅ Testable selectors
+
+ALTERNATIVE APPROACHES (WHY NGRX IS BETTER):
+---------------------------------------------
+❌ Service with BehaviorSubject:
+   - Hard to debug (no action history)
+   - No time-travel
+   - Easy to mutate state accidentally
+
+❌ Component state:
+   - Not shared across components
+   - Lost on navigation
+   - No centralized state
+
+✅ NgRx Store:
+   - Centralized, immutable state
+   - Full action history
+   - Time-travel debugging
+   - Predictable state updates
+
+================================================================================
+✓ Enrollment state managed in NgRx store
+✓ Immutable array operations
+✓ Parameterized selectors for checking enrollment
+✓ Dynamic button text based on state
+✓ Full action history in Redux DevTools
+================================================================================

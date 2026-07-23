@@ -1,0 +1,145 @@
+================================================================================
+SCREENSHOT 5: Component Using Store with Async Pipe
+================================================================================
+
+COMPONENT CODE (course-list.component.ts):
+-------------------------------------------
+import { Component, OnInit, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Course } from '../../models/course.model';
+import * as CourseActions from '../../store/course/course.actions';
+import * as CourseSelectors from '../../store/course/course.selectors';
+
+@Component({
+  selector: 'app-course-list',
+  templateUrl: './course-list.component.html',
+  styleUrls: ['./course-list.component.css']
+})
+export class CourseListComponent implements OnInit {
+  private store = inject(Store);
+
+  // Observables from store (NO manual subscribe needed!)
+  courses$: Observable<Course[]> = 
+    this.store.select(CourseSelectors.selectAllCourses);
+  
+  loading$: Observable<boolean> = 
+    this.store.select(CourseSelectors.selectCoursesLoading);
+  
+  error$: Observable<string | null> = 
+    this.store.select(CourseSelectors.selectCoursesError);
+
+  ngOnInit() {
+    // Dispatch action to load courses
+    this.store.dispatch(CourseActions.loadCourses());
+  }
+
+  onAddCourse(course: Omit<Course, 'id'>) {
+    this.store.dispatch(CourseActions.addCourse({ course }));
+  }
+
+  onDeleteCourse(id: number) {
+    this.store.dispatch(CourseActions.deleteCourse({ id }));
+  }
+}
+
+TEMPLATE (course-list.component.html):
+---------------------------------------
+<div class="course-list">
+  <h2>My Courses</h2>
+
+  <!-- Loading indicator from store -->
+  <div *ngIf="loading$ | async" class="loading">
+    <mat-spinner></mat-spinner>
+    Loading courses...
+  </div>
+
+  <!-- Error message from store -->
+  <div *ngIf="error$ | async as error" class="error-message">
+    ❌ {{ error }}
+    <button (click)="onAddCourse()">Retry</button>
+  </div>
+
+  <!-- Course list from store (async pipe!) -->
+  <div class="courses-grid" *ngIf="!(loading$ | async)">
+    <app-course-card
+      *ngFor="let course of courses$ | async"
+      [course]="course"
+      (delete)="onDeleteCourse(course.id)">
+    </app-course-card>
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="(courses$ | async)?.length === 0 && !(loading$ | async)" 
+       class="empty-state">
+    No courses available. Add your first course!
+  </div>
+</div>
+
+RENDERED OUTPUT (Browser):
+--------------------------
+┌─────────────────────────────────────────────────────────────┐
+│  My Courses                                                 │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────┐  ┌─────────────────┐  ┌────────────┐ │
+│  │ Introduction to │  │ TypeScript      │  │ RxJS and   │ │
+│  │ Angular         │  │ Fundamentals    │  │ Observables│ │
+│  │ ANG101          │  │ TS101           │  │ RX201      │ │
+│  │ 3 credits       │  │ 2 credits       │  │ 3 credits  │ │
+│  │ ✓ Enrolled      │  │ [Enroll]        │  │ ✓ Enrolled │ │
+│  │ [Delete]        │  │ [Delete]        │  │ [Delete]   │ │
+│  └─────────────────┘  └─────────────────┘  └────────────┘ │
+│                                                             │
+│  ┌─────────────────┐  ┌─────────────────┐                 │
+│  │ Angular Forms   │  │ Angular Routing │                 │
+│  │ ANG201          │  │ ANG301          │                 │
+│  │ 3 credits       │  │ 4 credits       │                 │
+│  │ [Enroll]        │  │ ✓ Enrolled      │                 │
+│  │ [Delete]        │  │ [Delete]        │                 │
+│  └─────────────────┘  └─────────────────┘                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+BENEFITS OF ASYNC PIPE:
+------------------------
+✅ Automatic subscription management (no memory leaks)
+✅ Automatic unsubscribe on component destroy
+✅ Automatic change detection trigger
+✅ Cleaner component code (no manual subscribe/unsubscribe)
+✅ OnPush change detection strategy compatible
+✅ No need for ngOnDestroy to clean up subscriptions
+
+WITHOUT ASYNC PIPE (❌ NOT RECOMMENDED):
+----------------------------------------
+courses: Course[] = [];
+private subscription!: Subscription;
+
+ngOnInit() {
+  this.subscription = this.store
+    .select(CourseSelectors.selectAllCourses)
+    .subscribe(courses => {
+      this.courses = courses;
+      this.cd.detectChanges();  // Manual change detection!
+    });
+}
+
+ngOnDestroy() {
+  this.subscription.unsubscribe();  // Must remember to unsubscribe!
+}
+
+WITH ASYNC PIPE (✅ BEST PRACTICE):
+------------------------------------
+courses$ = this.store.select(CourseSelectors.selectAllCourses);
+
+// No ngOnInit, no subscription, no ngOnDestroy needed!
+// Just use in template: {{ courses$ | async }}
+
+================================================================================
+✓ Component dispatches actions, never mutates state
+✓ Observables from selectors (no manual subscribe)
+✓ Async pipe handles subscription lifecycle
+✓ Loading/error states from store
+✓ Clean, declarative component code
+✓ No memory leaks
+================================================================================
