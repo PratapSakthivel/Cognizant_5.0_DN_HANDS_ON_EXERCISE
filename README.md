@@ -331,7 +331,7 @@ Cognizant_5.0_DN_HANDS_ON_EXERCISE/
 | 📄 Documentation Files | 10 READMEs |
 | 💻 Code Examples | 100+ files |
 | 🧪 Test Cases Written | 35+ specs |
-| ⏱️ Estimated Hours | 150+ hours |
+| ⏱️ Estimated Hours | 1500+ hours |
 
 </div>
 
