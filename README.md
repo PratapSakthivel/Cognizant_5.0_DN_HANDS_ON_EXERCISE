@@ -33,7 +33,7 @@ This repository contains comprehensive hands-on exercises completed as part of *
 
 ### 👨‍💻 Developer
 **Pratap Sakthivel**
-- 🎓 B.Tech – Information Technology, VSB Engineering College (2023 – 2027)
+- 🎓 B.Tech – Information Technology, VSB Engineering College (2023 – CURRENT)
 - 💼 Full-Stack Java Developer | Spring Boot & Angular Enthusiast
 - 🏆 National Level Hackathon Winner — GOAT Code Editor, JSREC 2026
 - 📧 [pratapssakthivel@gmail.com](mailto:pratapssakthivel@gmail.com)
