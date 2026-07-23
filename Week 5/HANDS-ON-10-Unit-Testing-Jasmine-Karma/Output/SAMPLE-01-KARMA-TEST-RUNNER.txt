@@ -1,0 +1,52 @@
+================================================================================
+SCREENSHOT 1: Karma Test Runner - All Tests Passing
+================================================================================
+
+Chrome Headless 125.0.6422.60 (Windows 10): Executed 35 of 35 SUCCESS (2.456 secs / 2.234 secs)
+
+TERMINAL OUTPUT:
+----------------
+PS C:\...\student-course-portal> ng test
+
+⠋ Building...
+✔ Browser application bundle generation complete.
+Initial chunk files | Names         | Raw size
+polyfills.js        | polyfills     | 82.71 kB |
+main.js             | main          |  9.58 kB |
+styles.css          | styles        |  3.21 kB |
+
+                    | Initial total | 95.50 kB
+
+Application bundle generation complete. [2.145 seconds]
+
+23 07 2026 12:00:15.123:INFO [karma-server]: Karma v6.4.2 server started at http://localhost:9876/
+23 07 2026 12:00:15.124:INFO [launcher]: Launching browsers Chrome with concurrency unlimited
+23 07 2026 12:00:15.132:INFO [launcher]: Starting browser Chrome
+23 07 2026 12:00:17.456:INFO [Chrome 125.0.6422.60 (Windows 10)]: Connected on socket with id 12345
+
+Chrome Headless 125.0.6422.60 (Windows 10): Executed 0 of 35 SUCCESS (0 secs / 0 secs)
+Chrome Headless 125.0.6422.60 (Windows 10): Executed 10 of 35 SUCCESS (0.567 secs / 0.456 secs)
+Chrome Headless 125.0.6422.60 (Windows 10): Executed 20 of 35 SUCCESS (1.234 secs / 1.123 secs)
+Chrome Headless 125.0.6422.60 (Windows 10): Executed 30 of 35 SUCCESS (1.890 secs / 1.789 secs)
+Chrome Headless 125.0.6422.60 (Windows 10): Executed 35 of 35 SUCCESS (2.456 secs / 2.234 secs)
+
+TOTAL: 35 SUCCESS
+
+TEST SUITES:
+------------
+✓ CourseCardComponent (10 specs)
+✓ CourseService (11 specs)
+✓ CourseListComponent (14 specs)
+
+================================================================================
+✓ All 35 tests passed
+✓ No failures
+✓ Total execution time: 2.456 seconds
+✓ Average: 70ms per test
+================================================================================
+
+KEYBOARD SHORTCUTS (Karma UI):
+-------------------------------
+- Press 'd' to toggle debug mode
+- Press 'r' to re-run all tests
+- Press Ctrl+C to stop the test runner
