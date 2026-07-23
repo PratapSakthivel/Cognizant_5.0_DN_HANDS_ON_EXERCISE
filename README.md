@@ -37,7 +37,7 @@ This repository contains comprehensive hands-on exercises completed as part of *
 - 💼 Full-Stack Java Developer | Spring Boot & Angular Enthusiast
 - 🏆 National Level Hackathon Winner — GOAT Code Editor, JSREC 2026
 - 📧 [pratapssakthivel@gmail.com](mailto:pratapssakthivel@gmail.com)
-- 💼 [LinkedIn](https://www.linkedin.com/in/pratap-s-587b0b342/) | 💻 [LeetCode (200+ problems)](https://leetcode.com/u/PratapSakthivel/)
+- 💼 [LinkedIn](https://www.linkedin.com/in/pratap-s-587b0b342/) | 💻 [LeetCode](https://leetcode.com/u/PratapSakthivel/)
 
 ---
 
