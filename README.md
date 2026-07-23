@@ -151,6 +151,24 @@ Cognizant_5.0_DN_HANDS_ON_EXERCISE/
 │       └── Output screenshots (3)
 │
 └── Week 5/ (Angular Frontend)
+    ├── HANDS-ON-1-Environment-Setup-Project-Structure/
+    │   ├── Angular CLI setup
+    │   ├── Project structure overview
+    │   ├── First component creation
+    │   └── Screenshots (1)
+    │
+    ├── HANDS-ON-2-Data-Binding-Lifecycle-Hooks/
+    │   ├── Interpolation, property, event binding
+    │   ├── Two-way binding with ngModel
+    │   ├── Component lifecycle (ngOnInit, ngOnChanges)
+    │   └── Screenshots (2)
+    │
+    ├── HANDS-ON-3-Directives-Pipes/
+    │   ├── Structural directives (*ngIf, *ngFor)
+    │   ├── Attribute directives (ngClass, ngStyle)
+    │   ├── Built-in pipes (date, currency, uppercase)
+    │   └── Custom pipes
+    │
     ├── HANDS-ON-4-Template-Driven-Forms/
     │   ├── Two-way data binding
     │   ├── Form validation (ngModel, required, pattern)
@@ -261,6 +279,9 @@ Cognizant_5.0_DN_HANDS_ON_EXERCISE/
 
 | Exercise | Topic | Status | Screenshots |
 |----------|-------|--------|-------------|
+| **HANDS-ON 1** | Environment Setup & First Component | ✅ | 1 |
+| **HANDS-ON 2** | Data Binding & Lifecycle Hooks | ✅ | 2 |
+| **HANDS-ON 3** | Directives & Pipes | ✅ | 0 |
 | **HANDS-ON 4** | Template-Driven Forms & Validation | ✅ | 4 |
 | **HANDS-ON 5** | Reactive Forms & FormBuilder | ✅ | 2 |
 | **HANDS-ON 6** | Services & Dependency Injection | ✅ | 1 |
@@ -269,7 +290,7 @@ Cognizant_5.0_DN_HANDS_ON_EXERCISE/
 | **HANDS-ON 9** | NgRx State Management | ✅ | 5 |
 | **HANDS-ON 10** | Unit Testing (Jasmine/Karma) | ✅ | 2 |
 
-**Total: 7 exercises | 25 screenshots**
+**Total: 10 exercises | 28 screenshots**
 
 ---
 
@@ -321,12 +342,12 @@ Cognizant_5.0_DN_HANDS_ON_EXERCISE/
 
 | Metric | Count |
 |--------|-------|
-| 📁 Total Hands-On Exercises | 19+ |
-| 📸 Total Screenshots | 31 |
-| 📄 Documentation Files | 15+ READMEs |
+| 📁 Total Hands-On Exercises | 22 |
+| 📸 Total Screenshots | 34 |
+| 📄 Documentation Files | 10 READMEs |
 | 💻 Code Examples | 100+ files |
-| 🧪 Test Cases Written | 50+ specs |
-| ⏱️ Estimated Hours | 120+ hours |
+| 🧪 Test Cases Written | 35+ specs |
+| ⏱️ Estimated Hours | 150+ hours |
 
 </div>
 
@@ -477,6 +498,9 @@ Week 4 (Spring Boot Microservices)
 └── Loan Microservice ✅
 
 Week 5 (Angular Frontend)
+├── Environment Setup & First Component ✅
+├── Data Binding & Lifecycle Hooks ✅
+├── Directives & Pipes ✅
 ├── Template-Driven Forms ✅
 ├── Reactive Forms ✅
 ├── Services & DI ✅
@@ -490,8 +514,8 @@ Week 5 (Angular Frontend)
 
 ## 🏆 Key Achievements
 
-- ✅ **19+ comprehensive hands-on exercises** across 5 weeks completed with full documentation
-- ✅ **31 screenshots** demonstrating working implementations
+- ✅ **22 comprehensive hands-on exercises** across 5 weeks completed with full documentation
+- ✅ **34 screenshots** demonstrating working implementations
 - ✅ **98%+ test coverage** achieved in unit testing exercise
 - ✅ **Full-stack expertise** from Core Java to Angular 20
 - ✅ **Enterprise patterns** implemented (Repository, Service Layer, Redux, Design Patterns)
@@ -521,6 +545,9 @@ Week 5 (Angular Frontend)
   </a>
   <a href="https://www.linkedin.com/in/pratap-s-587b0b342/">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
+  </a>
+  <a href="https://leetcode.com/u/PratapSakthivel/">
+    <img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black"/>
   </a>
   <a href="mailto:pratapssakthivel@gmail.com">
     <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
