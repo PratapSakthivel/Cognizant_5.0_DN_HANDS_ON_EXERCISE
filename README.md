@@ -196,6 +196,24 @@ Cognizant_5.0_DN_HANDS_ON_EXERCISE/
         ├── NgRx testing (MockStore)
         ├── 98%+ code coverage
         └── Screenshots (2)
+  ├── Week 6/ (Git Hands-On Exercises)
+  │   ├── Task 1/
+  │   │   ├── Git-Lab-Commands.md
+  │   │   ├── README.md
+  │   │   └── run-git-lab.ps1
+  │   ├── Task 2/
+  │   │   ├── Git-Ignore-Commands.md
+  │   │   ├── QUICK-REFERENCE.md
+  │   │   └── GitIgnoreDemo/
+  │   ├── Task 3/
+  │   │   ├── Git-Branch-Commands.md
+  │   │   └── GitBranchDemo/
+  │   ├── Task 4/
+  │   │   ├── QUICK-REFERENCE.md
+  │   │   └── GitConflictDemo/
+  │   └── Task 5/
+  │       ├── QUICK-REFERENCE.md
+  │       └── GitRemoteDemo/
 ```
 
 ---
@@ -278,6 +296,19 @@ Cognizant_5.0_DN_HANDS_ON_EXERCISE/
 
 ---
 
+### Week 6: Git Hands-On Exercises
+
+| Exercise | Topic | Status | Key Concepts |
+|----------|-------|--------|--------------|
+| **Task 1** | Git Lab Commands | ✅ | Basic commands, commit lifecycle, local repo workflows |
+| **Task 2** | .gitignore & Comparison | ✅ | Ignore rules, tracked vs untracked files |
+| **Task 3** | Branching | ✅ | Branch creation, feature branches, merging strategies |
+| **Task 4** | Conflicts | ✅ | Conflict creation and resolution workflows |
+| **Task 5** | Remote Repositories | ✅ | Remote setup, push/pull, collaboration workflows |
+
+**Total: 5 exercises | Git fundamentals & collaboration**
+
+
 ## 🔥 Key Concepts Mastered
 
 ### 🧠 Week 1: Core Java & Fundamentals
@@ -326,7 +357,7 @@ Cognizant_5.0_DN_HANDS_ON_EXERCISE/
 
 | Metric | Count |
 |--------|-------|
-| 📁 Total Hands-On Exercises | 22 |
+| 📁 Total Hands-On Exercises | 27 |
 | 📸 Total Screenshots | 34 |
 | 📄 Documentation Files | 10 READMEs |
 | 💻 Code Examples | 100+ files |
@@ -492,13 +523,23 @@ Week 5 (Angular Frontend)
 ├── HTTP Client ✅
 ├── NgRx State Management ✅
 └── Unit Testing ✅
+
+Week 6 (Git Hands-On Exercises)
+├── Task 1: Git Lab Commands ✅
+├── Task 2: .gitignore & Comparison ✅
+├── Task 3: Branching ✅
+├── Task 4: Conflicts ✅
+└── Task 5: Remote Repositories ✅
 ```
 
 ---
 
+
+
+
 ## 🏆 Key Achievements
 
-- ✅ **22 comprehensive hands-on exercises** across 5 weeks completed with full documentation
+- ✅ **27 comprehensive hands-on exercises** across 6 weeks completed with full documentation
 - ✅ **34 screenshots** demonstrating working implementations
 - ✅ **98%+ test coverage** achieved in unit testing exercise
 - ✅ **Full-stack expertise** from Core Java to Angular 20
