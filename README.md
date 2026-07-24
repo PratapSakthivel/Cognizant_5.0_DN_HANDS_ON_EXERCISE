@@ -3,6 +3,44 @@
   <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
 </div>
 
+---
+
+## **Week 6 — Git Hands-On Exercises**
+
+This week contains practical Git labs focused on everyday version control workflows used in collaborative development.
+
+- **Task 1 — Git Lab Commands**: Basic Git commands and local repository operations, commit history, and scripting with `run-git-lab.ps1`.
+- **Task 2 — .gitignore & Comparison**: Working with `.gitignore`, comparing tracked vs untracked files, and ignore rules demonstrated in `GitIgnoreDemo`.
+- **Task 3 — Branching**: Branch creation, feature branches, merging strategies and examples in `GitBranchDemo`.
+- **Task 4 — Conflicts**: Conflict creation and resolution exercises with step-by-step scripts in `GitConflictDemo`.
+- **Task 5 — Remote Repositories**: Pushing, pulling, remote setup, and collaboration examples located in `GitRemoteDemo`.
+
+**Key Concepts Practiced:** commit lifecycle, branching & merging, conflict resolution, ignore rules, remotes and push/pull workflows.
+
+**Folder structure (Week 6):**
+```
+Week 6/
+├── Task 1/
+│   ├── Git-Lab-Commands.md
+│   ├── README.md
+│   └── run-git-lab.ps1
+├── Task 2/
+│   ├── Git-Ignore-Commands.md
+│   ├── QUICK-REFERENCE.md
+│   └── GitIgnoreDemo/
+├── Task 3/
+│   ├── Git-Branch-Commands.md
+│   └── GitBranchDemo/
+├── Task 4/
+│   ├── QUICK-REFERENCE.md
+│   └── GitConflictDemo/
+└── Task 5/
+    ├── QUICK-REFERENCE.md
+    └── GitRemoteDemo/
+```
+
+---
+
 <!-- HERO CODING GIF -->
 <div align="center">
   <img 
